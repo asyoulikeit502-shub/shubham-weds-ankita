@@ -1,23 +1,35 @@
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
+import { languageLabels, type Language, type WeddingCopy } from "./copy";
 
 interface Props {
   onOpen: () => void;
+  language: Language;
+  onLanguageChange: (language: Language) => void;
+  copy: WeddingCopy["curtain"];
 }
 
-export default function Curtain({ onOpen }: Props) {
+export default function Curtain({ onOpen, language, onLanguageChange, copy }: Props) {
   const leftRef = useRef<SVGGElement>(null);
   const rightRef = useRef<SVGGElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
   const [opening, setOpening] = useState(false);
 
+  const resetPageScroll = () => {
+    if (typeof window === "undefined") return;
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  };
+
   const handleOpen = () => {
     if (opening) return;
+    resetPageScroll();
     setOpening(true);
     const tl = gsap.timeline({
       onComplete: () => {
+        resetPageScroll();
         onOpen();
+        requestAnimationFrame(resetPageScroll);
         gsap.to(wrapRef.current, {
           autoAlpha: 0,
           duration: 0.8,
@@ -32,6 +44,8 @@ export default function Curtain({ onOpen }: Props) {
       .to(leftRef.current, { x: "-105%", duration: 3.2, ease: "power3.inOut" }, 0.2)
       .to(rightRef.current, { x: "105%", duration: 3.2, ease: "power3.inOut" }, 0.2);
   };
+
+  const nextLanguage: Language = language === "bn" ? "en" : "bn";
 
   useEffect(() => {
     // entrance shimmer of content
@@ -217,24 +231,43 @@ export default function Curtain({ onOpen }: Props) {
         ref={contentRef}
         className="relative z-10 flex h-full flex-col items-center justify-center px-5 text-center"
       >
-        {/* <p className="font-display text-[10px] tracking-[0.3em] text-gold sm:text-xs sm:tracking-[0.4em]">
-          ✦  বিবাহের আমন্ত্রণ  ✦
-        </p> */}
-        <h1 className="mt-6 grid w-full max-w-5xl grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-4 font-serif-lux font-medium text-ivory sm:gap-6">
-          <span className="justify-self-end text-right text-4xl sm:text-7xl md:text-8xl">
-            শুভম
+        {/* <div className="absolute right-4 top-5 sm:right-8 sm:top-8">
+          <button
+            type="button"
+            onClick={() => onLanguageChange(nextLanguage)}
+            className="group rounded-full border border-gold/60 bg-night/60 px-4 py-2 font-display text-xs uppercase tracking-[0.18em] text-champagne shadow-[0_10px_30px_-16px_rgba(212,175,55,0.8)] backdrop-blur transition hover:bg-gold hover:text-night sm:px-5 sm:text-sm"
+            aria-label={`${copy.languageLabel}: ${languageLabels[language]}`}
+          >
+            <span className="text-gold group-hover:text-night">{languageLabels[language]}</span>
+            <span className="mx-2 text-champagne/50">/</span>
+            <span>{languageLabels[nextLanguage]}</span>
+          </button>
+        </div> */}
+          <button
+          type="button"
+          onClick={() => onLanguageChange(nextLanguage)}
+          className="language_btn group rounded-full border border-gold/60 bg-night/60 px-4 py-2 font-display text-xs uppercase tracking-[0.18em] text-champagne shadow-[0_10px_30px_-16px_rgba(212,175,55,0.8)] backdrop-blur transition hover:bg-gold hover:text-night sm:px-5 sm:text-sm"
+          aria-label={`${copy.languageLabel}: ${languageLabels[language]}`}
+        >
+          <span className="">{languageLabels[language]}</span>
+          <span className="mx-2">/</span>
+          <span>{languageLabels[nextLanguage]}</span>
+        </button>
+        <h1 className="mt-6 flex w-full max-w-5xl flex-col items-center justify-center gap-1 font-serif-lux font-medium text-ivory sm:grid sm:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] sm:gap-6">
+          <span className="max-w-full text-center text-4xl leading-tight sm:justify-self-end sm:text-right sm:text-7xl md:text-8xl">
+            {copy.groom}
           </span>
 
           <span className="justify-self-center font-light text-4xl leading-none text-red-600 sm:text-6xl md:text-7xl">
             ❤️
           </span>
 
-          <span className="justify-self-start text-left text-4xl sm:text-7xl md:text-8xl">
-            অঙ্কিতা
+          <span className="max-w-full text-center text-4xl leading-tight sm:justify-self-start sm:text-left sm:text-7xl md:text-8xl">
+            {copy.bride}
           </span>
         </h1>
         <button onClick={handleOpen} className="btn-royal mt-10 text-md sm:mt-12">
-          আমন্ত্রণ খুলুন
+          {copy.open}
         </button>
       </div>
     </div>

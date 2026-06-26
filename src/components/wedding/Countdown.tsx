@@ -13,7 +13,11 @@ function diff() {
   };
 }
 
-export default function Countdown() {
+interface CountdownProps {
+  labels: readonly string[];
+}
+
+export default function Countdown({ labels }: CountdownProps) {
   const [t, setT] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
@@ -23,10 +27,10 @@ export default function Countdown() {
     return () => clearInterval(i);
   }, []);
   const items = [
-    { label: "দিন", value: t.days },
-    { label: "ঘণ্টা", value: t.hours },
-    { label: "মিনিট", value: t.minutes },
-    { label: "সেকেন্ড", value: t.seconds },
+    { label: labels[0], value: t.days },
+    { label: labels[1], value: t.hours },
+    { label: labels[2], value: t.minutes },
+    { label: labels[3], value: t.seconds },
   ];
   return (
     <div className="flex flex-nowrap justify-center gap-2 sm:gap-6" suppressHydrationWarning>
