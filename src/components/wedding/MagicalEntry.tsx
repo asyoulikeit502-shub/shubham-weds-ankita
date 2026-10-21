@@ -106,11 +106,9 @@ export default function MagicalEntry({ active }: { active: boolean }) {
           )}
           {p.type === "sparkle" && (
             <svg viewBox="0 0 24 24" className="h-full w-full">
-              <path
-                d="M12 0 L13 11 L24 12 L13 13 L12 24 L11 13 L0 12 L11 11 Z"
-                fill="#D4AF37"
-                opacity="0.9"
-              />
+              <path d="M4 15c1.5 4 14.5 4 16 0H4Z" fill="#D4AF37" />
+              <path d="M7 17h10M12 15V7c-2 2-2 3.5 0 4.5 2-1 2-2.5 0-4.5Z" fill="#D4AF37" />
+              <path d="M3 20h18" stroke="#D4AF37" strokeWidth="1" />
             </svg>
           )}
         </div>
