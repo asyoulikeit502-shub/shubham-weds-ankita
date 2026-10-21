@@ -258,8 +258,8 @@ export default function Curtain({ onOpen, language, onLanguageChange, copy }: Pr
             {copy.groom}
           </span>
 
-          <span className="justify-self-center font-light text-4xl leading-none text-red-600 sm:text-6xl md:text-7xl">
-            ❤️
+          <span className="justify-self-center font-light text-4xl leading-none text-gold sm:text-6xl md:text-7xl">
+            🪷
           </span>
 
           <span className="max-w-full text-center text-4xl leading-tight sm:justify-self-start sm:text-left sm:text-7xl md:text-8xl">

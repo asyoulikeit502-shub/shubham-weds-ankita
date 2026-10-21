@@ -3,7 +3,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
-import { Eye, X } from "lucide-react";
+import { X } from "lucide-react";
 import Countdown from "./Countdown";
 import Ornament from "./Ornament";
 import FloatingDecor from "./FloatingDecor";
@@ -14,7 +14,7 @@ if (typeof window !== "undefined") {
 }
 
 const HERO_BG =
-  "bg_new2.jpg";
+  "bg_new3.png";
 
 const GALLERY = [
   "1.png",
@@ -61,12 +61,78 @@ function useReveal() {
 function Heading({ kicker, title }: { kicker: string; title: string }) {
   return (
     <div data-reveal className="mb-14 text-center">
-      <p className="font-display text-[20px] tracking-[0.5em] text-gold">✦ {kicker} ✦</p>
+      <p className="flex items-center justify-center gap-3 font-display text-[20px] tracking-[0.5em] text-gold">
+        <AlpanaMark className="h-5 w-5 shrink-0" />
+        {kicker}
+        <AlpanaMark className="h-5 w-5 shrink-0" />
+      </p>
       <h2 className="mt-3 font-serif-lux text-4xl font-medium text-ivory sm:text-5xl md:text-6xl">
         {title}
       </h2>
       <Ornament className="mx-auto mt-5 max-w-xs" />
     </div>
+  );
+}
+
+function AlpanaMark({ className = "h-6 w-6" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 32 32" className={className} fill="none" aria-hidden="true">
+      <g stroke="currentColor" strokeWidth="1.4">
+        <path d="M16 3c2.4 4 2.4 6.5 0 8-2.4-1.5-2.4-4 0-8Z" />
+        <path d="M29 16c-4 2.4-6.5 2.4-8 0 1.5-2.4 4-2.4 8 0Z" />
+        <path d="M16 29c-2.4-4-2.4-6.5 0-8 2.4 1.5 2.4 4 0 8Z" />
+        <path d="M3 16c4-2.4 6.5-2.4 8 0-1.5 2.4-4 2.4-8 0Z" />
+        <path d="M7 7c4 .8 6 2.5 5.6 5.6C9.5 13 7.8 11 7 7Z" />
+        <path d="M25 7c-.8 4-2.5 6-5.6 5.6C19 9.5 21 7.8 25 7Z" />
+        <path d="M25 25c-4-.8-6-2.5-5.6-5.6C22.5 19 24.2 21 25 25Z" />
+        <path d="M7 25c.8-4 2.5-6 5.6-5.6C13 22.5 11 24.2 7 25Z" />
+        <circle cx="16" cy="16" r="2.5" />
+      </g>
+    </svg>
+  );
+}
+
+function BengaliWeddingIcon({
+  kind,
+  className = "h-8 w-8",
+}: {
+  kind: "wedding" | "reception" | "invitation";
+  className?: string;
+}) {
+  if (kind === "wedding") {
+    return (
+      <svg viewBox="0 0 40 40" className={className} fill="none" aria-hidden="true">
+        <g stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6">
+          <path d="M9 30h22M12 28l2-8 3 4 3-15 3 15 3-4 2 8" />
+          <path d="M16 28v-4m8 4v-4M8 33h24M20 5v4" />
+          <circle cx="20" cy="17" r="1.2" fill="currentColor" />
+        </g>
+      </svg>
+    );
+  }
+
+  if (kind === "reception") {
+    return (
+      <svg viewBox="0 0 40 40" className={className} fill="none" aria-hidden="true">
+        <g stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6">
+          <path d="M8 25c3 5 21 5 24 0H8Z" />
+          <path d="M13 30h14M20 25v5M20 8c-3 4-3 6 0 8 3-2 3-4 0-8Z" />
+          <path d="M11 20c2-2 4-2 6 0m6 0c2-2 4-2 6 0" />
+          <path d="M7 34h26" />
+        </g>
+      </svg>
+    );
+  }
+
+  return (
+    <svg viewBox="0 0 40 40" className={className} fill="none" aria-hidden="true">
+      <g stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6">
+        <path d="M10 5h15l6 6v24H10z" />
+        <path d="M25 5v7h6M15 19h11M15 24h11" />
+        <path d="M20.5 28c1.7-2.7 3.5-2.7 5.2 0-1.7 2.7-3.5 2.7-5.2 0Z" />
+        <circle cx="23.1" cy="28" r="1" fill="currentColor" />
+      </g>
+    </svg>
   );
 }
 
@@ -91,7 +157,8 @@ export function Hero({ copy }: SectionProps) {
 
       <div className="relative z-10 mx-auto max-w-4xl px-5 py-10 text-center sm:px-6">
         <p data-reveal className="font-display text-[20px] tracking-[0.4em] text-gold sm:tracking-[0.5em]">
-          ✦ {t.kicker} ✦
+          <AlpanaMark className="inline-block h-5 w-5 align-middle" /> {t.kicker}{" "}
+          <AlpanaMark className="inline-block h-5 w-5 align-middle" />
         </p>
         <h1
           data-reveal
@@ -186,7 +253,13 @@ export function Gallery({ copy }: SectionProps) {
 
   return (
     <section ref={ref} className="relative bg-night py-24 sm:py-32">
-      <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: "url('/bg_new1.jpg')" }}
+      />
+      <div aria-hidden="true" className="absolute inset-0 bg-night/70" />
+      <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6">
         <Heading kicker={copy.gallery.kicker} title={copy.gallery.title} />
         <div data-reveal className="relative">
           <div className="overflow-hidden" ref={emblaRef}>
@@ -210,7 +283,7 @@ export function Gallery({ copy }: SectionProps) {
                         loading="lazy"
                         className="h-[420px] w-full object-cover transition-transform duration-1000 group-hover:scale-110 sm:h-[480px]"
                       />
-                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-night/70 via-transparent to-transparent" />
+                      <div className="pointer-events-none absolute inset-0" />
                     </button>
                   </div>
                 );
@@ -291,8 +364,17 @@ export function Events({ copy }: SectionProps) {
   const ref = useReveal();
 
   return (
-    <section ref={ref} className="relative bg-night py-24 sm:py-32 events_sec">
-      <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+    <section ref={ref} className="relative overflow-hidden bg-night py-24 sm:py-32 events_sec">
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: "url('/bg_new4.png')" }}
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-gradient-to-b from-night/80 via-night/65 to-night/85"
+      />
+      <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6">
         <Heading kicker={copy.events.kicker} title={copy.events.title} />
         <div className="grid gap-6 sm:grid-cols-2">
           {copy.events.items.map((e) => (
@@ -307,7 +389,7 @@ export function Events({ copy }: SectionProps) {
               />
               <div className="relative">
                 <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full border border-gold/60 text-2xl text-gold">
-                  {e.icon}
+                  <BengaliWeddingIcon kind={e.icon} />
                 </div>
                 <h3 className="mt-5 font-serif-lux text-2xl text-ivory">{e.name}</h3>
                 <div className="gold-divider my-3 mx-auto w-12" />
@@ -343,15 +425,19 @@ export function InvitationCard({ copy }: SectionProps) {
             <div className="pointer-events-none absolute inset-3 border border-gold/40" />
             <div className="pointer-events-none absolute inset-5 border border-gold/20" />
 
-            {["top-3 left-3", "top-3 right-3 rotate-90", "bottom-3 left-3 -rotate-90", "bottom-3 right-3 rotate-180"].map((p) => (
-              <svg key={p} className={`absolute h-10 w-10 text-gold ${p}`} viewBox="0 0 40 40">
-                <path d="M2 2 H18 M2 2 V18 M2 10 H10 V2" stroke="currentColor" strokeWidth="1" fill="none" />
-                <circle cx="10" cy="10" r="1.2" fill="currentColor" />
-              </svg>
-            ))}
+            {["top-2 left-2", "top-2 right-2", "bottom-2 left-2", "bottom-2 right-2"].map(
+              (position) => (
+                <AlpanaMark
+                  key={position}
+                  className={`absolute h-9 w-9 text-gold ${position}`}
+                />
+              )
+            )}
 
-            <p className="font-display text-[20px] tracking-[0.4em] text-gold sm:tracking-[0.5em]">
-              ✦ {copy.invitation.label} ✦
+            <p className="flex items-center justify-center gap-3 font-display text-[20px] tracking-[0.4em] text-gold sm:tracking-[0.5em]">
+              <AlpanaMark className="h-5 w-5 shrink-0" />
+              {copy.invitation.label}
+              <AlpanaMark className="h-5 w-5 shrink-0" />
             </p>
             <div className="mt-6 space-y-5 font-serif-lux text-sm italic leading-relaxed text-champagne/90 sm:text-base">
               {copy.invitation.body.map((paragraph) => (
@@ -411,9 +497,18 @@ export function PhysicalCard({ copy }: SectionProps) {
   }, [open]);
 
   return (
-    <section ref={ref} className="relative bg-night py-24 sm:py-32">
+    <section ref={ref} className="relative overflow-hidden bg-night py-24 sm:py-32 invitation_sec">
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: "url('/bg_new2.jpg')" }}
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-gradient-to-b from-night/80 via-night/65 to-night/85"
+      />
       <FloatingDecor />
-      <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+      <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6">
         <Heading kicker={text.kicker} title={text.title} />
         <div data-reveal className="luxury-card overflow-hidden rounded-xl">
           <div className="grid items-center gap-8 p-5 sm:p-8 lg:grid-cols-[1.15fr_0.85fr] lg:p-10">
@@ -443,7 +538,7 @@ export function PhysicalCard({ copy }: SectionProps) {
               </p>
               <div className="gold-divider mx-auto my-6 w-24 lg:mx-0" />
               <button type="button" onClick={() => setOpen(true)} className="btn-royal gap-3 text-md">
-                <Eye className="h-5 w-5" aria-hidden="true" />
+                <BengaliWeddingIcon kind="invitation" className="h-5 w-5" />
                 {text.action}
               </button>
             </div>
@@ -528,9 +623,18 @@ export function Blessings({ copy }: SectionProps) {
   const ref = useReveal();
 
   return (
-    <section ref={ref} className="relative royal-bg py-24 sm:py-32">
+    <section ref={ref} className="relative overflow-hidden bg-night py-24 sm:py-32 blessings_sec">
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: "url('/bengali-weeding-1.png')" }}
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-gradient-to-b from-night/80 via-night/60 to-night/85"
+      />
       <FloatingDecor />
-      <div data-reveal className="relative mx-auto max-w-3xl px-6 text-center">
+      <div data-reveal className="relative z-10 mx-auto max-w-3xl px-6 text-center">
         <p className="font-script text-7xl text-gold sm:text-8xl">"</p>
         <p className="-mt-6 font-serif-lux text-2xl italic leading-relaxed text-ivory sm:text-3xl md:text-4xl">
           {copy.blessings}

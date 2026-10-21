@@ -16,10 +16,19 @@ export default function FloatingDecor() {
             animationDuration: `${4 + (i % 4)}s`,
           }}
         >
-          <path
-            d="M12 2 L13 11 L22 12 L13 13 L12 22 L11 13 L2 12 L11 11 Z"
-            fill="currentColor"
-          />
+          <g fill="currentColor">
+            {[0, 45, 90, 135].map((angle) => (
+              <ellipse
+                key={angle}
+                cx="12"
+                cy="6.5"
+                rx="2.1"
+                ry="4.5"
+                transform={`rotate(${angle} 12 12)`}
+              />
+            ))}
+            <circle cx="12" cy="12" r="2.2" />
+          </g>
         </svg>
       ))}
     </div>
